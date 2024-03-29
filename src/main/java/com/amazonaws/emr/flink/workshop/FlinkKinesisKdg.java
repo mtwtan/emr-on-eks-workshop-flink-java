@@ -185,6 +185,7 @@ public class FlinkKinesisKdg {
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setRuntimeMode(RuntimeExecutionMode.STREAMING);
+        env.enableCheckpointing(60000);
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
         String stream_name = args[0];
