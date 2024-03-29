@@ -183,7 +183,7 @@ public class FlinkKinesisKdg {
     public static void main(String[] args) throws Exception {
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.setRuntimeMode(RuntimeExecutionMode.BATCH);
+        env.setRuntimeMode(RuntimeExecutionMode.STREAMING);
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
         String stream_name = args[0];
