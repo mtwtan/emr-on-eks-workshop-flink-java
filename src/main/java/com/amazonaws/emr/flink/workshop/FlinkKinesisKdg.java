@@ -38,7 +38,7 @@ public class FlinkKinesisKdg {
                 "    'connector' = 'kinesis'," +
                 "    'stream' = '%s'," +
                 "    'aws.region' = '%s'," +
-                "    'scan.stream.initpos' = 'LATEST'," +
+                "    'scan.stream.initpos' = 'TRIM_HORIZON'," +
                 "    'format' = 'json'" +
                 ")", tableName, streamName, region);
     }
