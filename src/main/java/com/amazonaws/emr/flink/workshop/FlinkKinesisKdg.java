@@ -247,7 +247,7 @@ public class FlinkKinesisKdg {
 
         TableResult tableResult = stmtSet.execute();
 
-        dispStr = String.format("Reading stream: %s in region: %s to S3 bucket: %s", stream_name, region, bucket_name);
+        String dispStr = String.format("Reading stream: %s in region: %s to S3 bucket: %s", stream_name, region, bucket_name);
 
         System.out.println(dispStr);
         System.out.println(tableResult.getJobClient().get().getJobStatus());
