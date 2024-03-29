@@ -201,21 +201,30 @@ public class FlinkKinesisKdg {
 
         // Source table
 
-        tableEnv.executeSql(
-            createSourceTable(source_table_name, stream_name, region)
-        );
+        String crSrcTableStr = createSourceTable(source_table_name, stream_name, region);
+        System.out.println("Create Source Table");
+        System.out.println("-------------------");
+        System.out.println(crSrcTableStr);
+
+        tableEnv.executeSql(crSrcTableStr);
 
         // Sink table
 
-        tableEnv.executeSql(
-            createSinkTable(sink_table_name,sink_file_path)
-        );
+        String crSinkTableStr = createSinkTable(sink_table_name,sink_file_path);
+        System.out.println("Create Sink Table");
+        System.out.println("-------------------");
+        System.out.println(crSinkTableStr);
+
+        tableEnv.executeSql(crSinkTableStr);
         
         // Tumbling windows table
 
-        tableEnv.executeSql(
-            createSinkTableTumblingWindow(sink_tumbling_window_table_name,sink_tumbling_window_file_path)
-        );
+        String crSinkTumblingStr = createSinkTableTumblingWindow(sink_tumbling_window_table_name,sink_tumbling_window_file_path);
+        System.out.println("Create Sink Tumbling Window Table");
+        System.out.println("-------------------");
+        System.out.println(crSinkTumblingStr);
+
+        tableEnv.executeSql(crSinkTumblingStr);
 
         // **** Insert streams into tables
 
@@ -225,25 +234,23 @@ public class FlinkKinesisKdg {
 
         // Tumbling windows
 
-        stmtSet.addInsertSql(setInsertSqlTumblingWindow(
-            source_table_name,sink_tumbling_window_table_name
-        ));
+        String stmtTumblingStr = setInsertSqlTumblingWindow(source_table_name,sink_tumbling_window_table_name);
+        System.out.println("Set Tumbling Window Table Insert SQL");
+        System.out.println("-------------------");
+        System.out.println(stmtTumblingStr);
+
+        stmtSet.addInsertSql(stmtTumblingStr);
 
 
         // Data sink to S3
 
-        stmtSet.addInsertSql(
-            setInsertSqlSinkAllToS3(
-                source_table_name,sink_table_name
-            )
-        );
+        String stmtSinkAllStr = setInsertSqlSinkAllToS3(source_table_name,sink_table_name);
+        System.out.println("Set Sink to S3 ALL Insert SQL");
+        System.out.println("-------------------");
+        System.out.println(stmtSinkAllStr);
 
-        stmtSet.addInsertSql(
-            setInsertSqlSinkAllToS3(
-                source_table_name,
-                sink_table_name
-            )
-        );
+        stmtSet.addInsertSql(stmtSinkAllStr);
+
 
         TableResult tableResult = stmtSet.execute();
 
