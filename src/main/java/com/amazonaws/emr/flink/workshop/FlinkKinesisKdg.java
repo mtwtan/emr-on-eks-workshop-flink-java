@@ -32,7 +32,8 @@ public class FlinkKinesisKdg {
                 "    ccexpiry VARCHAR," +
                 "    ccsecurecode VARCHAR," +
                 "    ip VARCHAR," +
-                "    browser VARCHAR" +
+                "    browser VARCHAR," +
+                "    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND"
                 ") WITH (" +
                 "    'connector' = 'kinesis'," +
                 "    'stream' = '%s'," +
